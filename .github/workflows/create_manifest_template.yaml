@@ -1,6 +1,11 @@
 name: Create Manifest Template
 
-on: workflow_dispatch
+on: 
+  workflow_dispatch:   # allows manually running
+  workflow_run:        # also run once either of the release jobs is completed
+    workflows: [Create Release - Stable, Create Release - Unstable]
+    types:
+      - completed
 
 env:
   AP_WORLD_NAME: Manual
@@ -57,3 +62,6 @@ jobs:
         with:
           add: 'templates'
           message: 'Update manifest template'
+          committer_name: 'GitHub Actions'
+          committer_email: 'actionrunner@veryrealandnotmadeupdomain.com'
+
