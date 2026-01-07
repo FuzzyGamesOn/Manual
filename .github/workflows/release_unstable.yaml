@@ -14,7 +14,7 @@ permissions:
 
 jobs:
   call-manifest-creation-workflow:
-    uses: ./.github/workflows/create_manifest_template.yml
+    uses: ./.github/workflows/create_manifest_template.yaml
   create-release:
     name: Create unstable apworld
     runs-on: ubuntu-latest
