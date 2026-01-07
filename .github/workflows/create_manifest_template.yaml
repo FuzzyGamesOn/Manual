@@ -1,0 +1,5 @@
+name: Create Manifest Template
+
+on: workflow_dispatch
+
+
