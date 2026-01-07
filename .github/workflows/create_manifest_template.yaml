@@ -2,4 +2,11 @@ name: Create Manifest Template
 
 on: workflow_dispatch
 
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
 
+    steps:
+      - name: Foo
+        run: ls -la
