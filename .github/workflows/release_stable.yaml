@@ -13,9 +13,6 @@ permissions:
   contents: write
 
 jobs:
-  call-manifest-creation-workflow:
-    name: Call Workflow - Create Manifest Template
-    uses: ./.github/workflows/create_manifest_template.yaml
   create-release:
     name: Create stable apworld
     runs-on: ubuntu-latest
