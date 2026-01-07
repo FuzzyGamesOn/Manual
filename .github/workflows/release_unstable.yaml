@@ -19,6 +19,7 @@ jobs:
   create-release:
     name: Create unstable apworld
     runs-on: ubuntu-latest
+    needs: call-manifest-creation-workflow # wait for manifest creation and commit
 
     steps:
       - name: Set current date to env
