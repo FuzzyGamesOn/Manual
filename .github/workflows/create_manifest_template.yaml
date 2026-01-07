@@ -1,6 +1,8 @@
 name: Create Manifest Template
 
-on: workflow_dispatch # also allows manually running, but is triggered from start of create release workflows
+on: 
+  workflow_call:     # mainly called from create stable/unstable release workflows
+  workflow_dispatch: # ... also allows manually running
 
 env:
   AP_WORLD_NAME: Manual
