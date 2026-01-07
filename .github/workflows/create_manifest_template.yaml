@@ -2,11 +2,47 @@ name: Create Manifest Template
 
 on: workflow_dispatch
 
-jobs:
-  test:
-    name: Test
-    runs-on: ubuntu-latest
+env:
+  AP_WORLD_NAME: Manual
+  AP_WORLD_DIR: manual
 
+permissions:
+  contents: write
+
+jobs:
+  create-manifest-template:
+    runs-on: ubuntu-latest
     steps:
-      - name: Foo
-        run: ls -la
+      - name: Checkout AP
+        uses: actions/checkout@v4
+        with:
+          repository: ArchipelagoMW/Archipelago
+          path: .
+      - name: Checkout this Repo
+        uses: actions/checkout@v4
+        with:
+          path: temp/
+      - name: Set version number env from apworld init
+        run: |
+          mkdir -p worlds/${AP_WORLD_DIR}
+          cp -R temp/src/* worlds/${AP_WORLD_DIR}
+      - name: Install python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '~3.12.7'
+          check-latest: true
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python ModuleUpdate.py --yes --force
+      - name: Create AP World Archive 
+        run: |
+          python Launcher.py "Build APWorlds" -- "${{ env.AP_WORLD_NAME }}"
+      - name: Create Template folder if not exists
+        run: mkdir -p temp/templates
+      - name: Extract built APWorld and get manifest
+        run: |
+          mv build/apworlds/${{ env.AP_WORLD_DIR }}.apworld build/apworlds/${{ env.AP_WORLD_DIR }}.zip
+          unzip ${{ env.AP_WORLD_DIR}}.zip
+          ls -la temp
+          ls -la .
