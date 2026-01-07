@@ -13,15 +13,15 @@ jobs:
   create-manifest-template:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout this Repo
+        uses: actions/checkout@v4
+        with:
+          path: .
       - name: Checkout AP
         uses: actions/checkout@v4
         with:
           repository: ArchipelagoMW/Archipelago
           path: ./ap
-      - name: Checkout this Repo
-        uses: actions/checkout@v4
-        with:
-          path: .
       - name: Copy apworld src into worlds folder
         run: |
           mkdir -p ap/worlds/${AP_WORLD_DIR}
