@@ -13,6 +13,8 @@ permissions:
   contents: write
 
 jobs:
+  call-manifest-creation-workflow:
+    uses: ./.github/workflows/create-manifest-template.yml
   create-release:
     name: Create stable apworld
     runs-on: ubuntu-latest
